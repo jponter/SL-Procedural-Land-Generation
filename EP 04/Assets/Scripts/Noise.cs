@@ -70,6 +70,20 @@ public static class Noise
             }
         }
         Debug.Log("Noise Map Generated: Min Height = " + minNoiseHeight + ", Max Height = " + maxNoiseHeight);
+
+        // Add this debug
+        float testMin = 1f, testMax = 0f;
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                if (noiseMap[x, y] < testMin) testMin = noiseMap[x, y];
+                if (noiseMap[x, y] > testMax) testMax = noiseMap[x, y];
+            }
+        }
+        Debug.Log($"NoiseMap in Generator: Min = {testMin}, Max = {testMax}");
+
+
         return noiseMap;
     }
 

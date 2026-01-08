@@ -13,46 +13,17 @@ public class MapDisplay : MonoBehaviour
 
 
 
-    public void DrawNoiseMap(float[,] noiseMap)
+    public void DrawTexture(Texture2D texture)
     {
-        int width = noiseMap.GetLength(0);
-        int height = noiseMap.GetLength(1);
-
-        //if(localTextureScale <= 0)  
-        //{
-        //    localTextureScale = 1;
-        //}
-
-        Texture2D texture = new Texture2D(width, height);
-        if(pointFilter)texture.filterMode = FilterMode.Point;
-
-        Color[] colorMap = new Color[width * height];
-
-        float minVal = 1f, maxVal = 0f;
-
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                float value = noiseMap[x, y];
-                if (value < minVal) minVal = value;
-                if (value > maxVal) maxVal = value;
-                colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x,y]);
-            }
-        }
-
-
-        Debug.Log($"DrawNoiseMap received values: Min = {minVal}, Max = {maxVal}");
-
-        texture.SetPixels(colorMap);
-        texture.Apply();
-
+        
+        
+        Debug.Log("Drawing Texture");
 
         //create a new texture
         Material mat = new Material(Shader.Find("Unlit/Texture"));
         mat.mainTexture = texture;
         textureRender.material = mat;
 
-        textureRender.transform.localScale = new Vector3(width, 1, height);
+        textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 }
